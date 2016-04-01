@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta http-equiv="content-type" content="text/html; charset=">
   <title>Youtube player</title>
@@ -10,60 +9,29 @@
   <script src="http://smartplugin.youbora.com/5.0/js/libs/5.1.03/youboralib.min.js" youbora-debug="4"></script>
   <script src="js/plugin.js"></script>
 
+  <style>
+    .row {
+      margin-bottom: 2%;
+    }
+  </style>
 </head>
 
 <body>
 
   <div class="container">
-    <h1>Youtube YOUBORA Plugin</h1>
+    <div class="row">
+      <h1>Youtube YOUBORA Plugin</h1>
+    </div>
+    <div class="row">
+      <ul class="nav nav-pills" id="navbar">
+        <li role="selector" id="vod_noAd" class="active"><a href="#">VoD (no Ads)</a></li>
+        <li role="selector" id="live_noAd"><a href="#">Live (no Ads)</a></li>
+      </ul>
+    </div>
     <div class="row">
       <div id="player"></div>
     </div>
-
   </div>
-
-
-  <script>
-    var YTtag = document.createElement('script');
-    YTtag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(YTtag, firstScriptTag);
-
-    var player;
-
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player('player', {
-        height: '390',
-        width: '640',
-        //videoId: 'M7lc1UVf-VE', //VoD
-        videoId: 'VBEmqvVPOX4', //Live
-        events: {
-          'onReady': onPlayerReady,
-        }
-      });
-
-      // Youbora plugin setup
-      var options = {
-        //Fill in options
-      };
-
-      // Need to declare it global or it doesn't work...
-      plugin = new $YB.plugins.YT(player);
-
-    }
-
-    // 4. The API will call this function when the video player is ready.
-    function onPlayerReady(event) {
-      event.target.playVideo();
-      player.mute();
-    }
-  </script>
-
+  <script src="js/app.js"></script>
 </body>
-
-</html>
-
-
-</body>
-
 </html>

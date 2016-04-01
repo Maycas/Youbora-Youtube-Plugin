@@ -1,7 +1,7 @@
 $YB.plugins.YT = function(player, options) {
   // Name and version the plugin
   this.pluginName = 'youtube';
-  this.pluginVersion = '5.1.0c-1.0-youtube';
+  this.pluginVersion = '5.1.0-1.0-youtube';
 
   // This method will start the library logic.
   this.init(player, options);
@@ -16,6 +16,7 @@ $YB.plugins.YT.prototype = new $YB.plugins.Generic();
 $YB.plugins.YT.prototype.registerListeners = function() {
   var context = this;
 
+  // TODO: Evaluate improvement on the buffering detection using buffering and playing events
   this.player.addEventListener("onStateChange", function(event) {
     switch (event.data) {
       case YT.PlayerState.UNSTARTED:
@@ -29,6 +30,8 @@ $YB.plugins.YT.prototype.registerListeners = function() {
         break;
       case YT.PlayerState.PAUSED:
         context.pauseHandler();
+        break;
+      case YT.PlayerState.BUFFERING:
         break;
     }
   });
@@ -47,7 +50,11 @@ $YB.plugins.YT.prototype.registerListeners = function() {
       code = 101;
     }
 
-    context.errorHandler(code, error[code]);
+    if (error[code] !== undefined) {
+      context.errorHandler(code, error[code]);
+    } else {
+      context.errorHandler(code, 'Unknown error');
+    }
   });
 
   this.startAutobuffer();
@@ -58,11 +65,7 @@ $YB.plugins.YT.prototype.getResource = function() {
 };
 
 $YB.plugins.YT.prototype.getMediaDuration = function() {
-  if (!this.videoApi.getIsLive()) {
-    return this.player.getDuration();
-  } else {
-    return 0;
-  }
+  return this.player.getDuration();
 };
 
 $YB.plugins.YT.prototype.getPlayhead = function() {
@@ -71,4 +74,15 @@ $YB.plugins.YT.prototype.getPlayhead = function() {
 
 $YB.plugins.YT.prototype.getRendition = function() {
   return this.player.getPlaybackQuality();
+};
+
+$YB.plugins.YT.prototype.getIsLive = function() {
+  if (this.player.getDuration() !== 0) {
+    return false;
+  }
+  return true;
+};
+
+$YB.plugins.YT.prototype.getTitle = function() {
+  return this.player.getVideoData().title;
 };
