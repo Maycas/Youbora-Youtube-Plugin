@@ -70,9 +70,7 @@ function loadPlayer(videoId, playerId) {
   });
 
   // Plugin declaration
-  if (typeof $YB !== undefined) {
-    youbora = new $YB.plugins.YT(player, options);
-  }
+  youbora = new $YB.plugins.Youtube(player, options);
 }
 
 // YOUTUBE Player setup
