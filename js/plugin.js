@@ -71,7 +71,7 @@ if (typeof $YB != 'undefined') {
                 var pre = 'Event: ' + context.player.getVideoData().video_id + ' > ';
                 switch (event.data) {
                     case YT.PlayerState.UNSTARTED:
-                        context.videoChangeHandler();
+                        context.playHandler();
                         $YB.debug(pre + 'State UNSTARTED');
                         break;
                     case YT.PlayerState.ENDED:
