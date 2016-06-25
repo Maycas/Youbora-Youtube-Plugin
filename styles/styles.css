@@ -1,0 +1,152 @@
+/*********************************************
+  PAGE STRUCTURE
+*********************************************/
+
+.navbar {
+    border-radius: 0px;
+}
+
+.row {
+    margin-bottom: 2%;
+}
+
+.no-padding {
+    padding: 0;
+}
+
+h1 {
+    font-size: 2em;
+    margin: 0 0 30px 0;
+    padding: 0
+}
+
+div.row > h1 {
+    margin-top: 30px;
+}
+
+.navbar-brand {
+    padding: 0px;
+}
+
+.navbar-brand>img {
+    height: 100%;
+    padding: 5px 0;
+    width: auto;
+}
+
+#navbar-title {
+    padding: 0 0 0 10px;
+}
+
+#eventBox {
+    overflow-y: scroll;
+    height: 39em;
+}
+
+footer {
+    background: #333;
+    color: #fff;
+}
+
+footer p {
+    margin: 0;
+    color: #9d9d9d;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-align: right;
+    padding: 12px 12px;
+}
+
+#author {
+    font-style: italic;
+}
+
+
+/*********************************************
+  TABLE STYLES
+*********************************************/
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid #292929 1px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    -moz-border-top-left-radius: 6px;
+    -moz-border-top-right-radius: 6px;
+}
+
+tr:nth-child(even) {
+    background-color: #eee;
+}
+
+tr:hover {
+    background-color: #F3D2E1;
+}
+
+td,
+th {
+    border-left: solid black 1px;
+    border-top: solid black 1px;
+}
+
+th {
+    background-color: #292929;
+    color: white;
+    padding: 15px;
+    border-top: none;
+    text-align: center;
+}
+
+th:last-child {
+    text-align: left;
+}
+
+td {
+    padding: 5px 15px;
+}
+
+td:first-child {
+    border-left: none;
+    text-align: center;
+}
+
+.status {
+    width: 15%;
+}
+
+.events {
+    width: 10%;
+}
+
+
+/*********************************************
+  STATUS STYLES
+*********************************************/
+
+.LIMITATION {
+    background: #ffd351;
+    color: #000;
+    font-weight: bold;
+    font-size: 11pt;
+    text-align: center;
+}
+
+.SUPPORTED {
+    background: #14892c;
+    color: #fff;
+    font-weight: bold;
+    font-size: 11pt;
+    text-align: center;
+}
+
+.UNAVAILABLE {
+    background: #d04437;
+    color: #fff;
+    font-weight: bold;
+    font-size: 11pt;
+    text-align: center;
+}
+
+.COMMENTS {
+    font-size: 11pt;
+}

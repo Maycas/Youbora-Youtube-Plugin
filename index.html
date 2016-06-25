@@ -1,37 +1,80 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=">
-  <title>Youtube player</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="description" content="Youbora Analytics demo page with a YouTube Player">
+    <meta name="keywords" content="YOUBORA, YouTube, plugins">
+    <meta name="author" content="Marc Maycas">
+    <title>Youtube player</title>
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/styles.css" />
 
-  <script src="http://smartplugin.youbora.com/5.0/js/libs/5.1.03/youboralib.min.js" youbora-debug="4"></script>
-  <script src="js/plugin.js"></script>
-
-  <style>
-    .row {
-      margin-bottom: 2%;
-    }
-  </style>
+    <!-- JS: YOUBORA Plugin -->
+    <script src="http://smartplugin.youbora.com/5.0/js/libs/5.2-RC/youboralib.js" youbora-debug="3"></script>
+    <script src="js/plugin.js"></script>
 </head>
 
 <body>
 
-  <div class="container">
-    <div class="row">
-      <h1>Youtube YOUBORA Plugin</h1>
+    <!-- Header -->
+    <header>
+        <nav class="navbar navbar-inverse">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#"><img src="images/white_logo.png" id="logo"></a>
+                    <p class="navbar-text" id="navbar-title">YOUBORA YouTube Plugin</p>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- ./end header -->
+
+    <!-- Main content -->
+    <div class="container">
+        <!-- Content Selector -->
+        <div class="row">
+            <!-- Placeholder for the auto-generated list video files -->
+            <ul class="nav nav-pills" id="navbar"></ul>
+        </div>
+        <!-- ./end Content Selector-->
+        <!-- Main interface -->
+        <div class="row">
+            <div class="col-sm-6">
+                <!-- Player holder row -->
+                <div id="player" class="row no-padding"></div>
+                <!-- ./end player holder row -->
+                <!-- Fetaures table row-->
+                <div class="row no-padding">
+                    <h1>Supported Features</h1>
+                    <div class="table-responsive" id="features"></div>
+                </div>
+                <!-- ./end features table row -->
+            </div>
+            <!-- Event box -->
+            <div class="col-sm-6">
+                <h1>Events Box</h1>
+                <div id="eventBox"></div>
+            </div>
+            <!-- ./end Event Box -->
+        </div>
+        <!-- ./end Main interface -->
     </div>
-    <div class="row">
-      <ul class="nav nav-pills" id="navbar">
-        <li role="selector" id="vod_noAd" class="active"><a href="#">VoD (no Ads)</a></li>
-        <li role="selector" id="live_noAd"><a href="#">Live (no Ads)</a></li>
-      </ul>
-    </div>
-    <div class="row">
-      <div id="player"></div>
-    </div>
-  </div>
-  <script src="js/app.js"></script>
+
+    <!-- Footer -->
+    <footer>
+        <p>by <span id="author">Marc Maycas</span></p>
+    </footer>
+    <!-- ./end footer -->
+
+    <!-- Scripts -->
+    <script src="js/player.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/eventsDisplay.js"></script>
+    <!-- ./end scripts -->
 </body>
+
 </html>

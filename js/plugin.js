@@ -7,7 +7,7 @@
 
 if (typeof $YB != 'undefined') {
 
-    $YB.plugins.Youtube = function(player, options) {
+    $YB.plugins.Youtube = function (player, options) {
         try {
             /** Name and platform of the plugin.*/
             this.pluginName = 'youtube';
@@ -29,18 +29,18 @@ if (typeof $YB != 'undefined') {
     $YB.plugins.Youtube.prototype = new $YB.plugins.Generic();
 
     /** Returns the current playhead of the video or 0. */
-    $YB.plugins.Youtube.prototype.getPlayhead = function() {
+    $YB.plugins.Youtube.prototype.getPlayhead = function () {
         return this.player.getCurrentTime();
     };
 
     /** Returns the media duration of the video or 0. */
-    $YB.plugins.Youtube.prototype.getMediaDuration = function() {
+    $YB.plugins.Youtube.prototype.getMediaDuration = function () {
         return this.player.getDuration();
     };
 
     /** Returns the title or an empty string. */
-    $YB.plugins.Youtube.prototype.getTitle = function() {
-        if (youbora.player.getVideoData) {
+    $YB.plugins.Youtube.prototype.getTitle = function () {
+        if (this.player.getVideoData) {
             return this.player.getVideoData().title;
         } else {
             return 'unknown';
@@ -48,17 +48,17 @@ if (typeof $YB != 'undefined') {
     };
 
     /** Returns the src of the resource or an empty string. */
-    $YB.plugins.Youtube.prototype.getResource = function() {
+    $YB.plugins.Youtube.prototype.getResource = function () {
         return this.player.getVideoUrl();
     };
 
     /** Returns the current rendition of the video or an empty string. */
-    $YB.plugins.Youtube.prototype.getRendition = function() {
+    $YB.plugins.Youtube.prototype.getRendition = function () {
         return this.player.getPlaybackQuality();
     };
 
     /** Register Listeners */
-    $YB.plugins.Youtube.prototype.registerListeners = function() {
+    $YB.plugins.Youtube.prototype.registerListeners = function () {
         try {
             // Start buffer watcher. Requires data.enableNiceBuffer to be true.
             //this.startAutobuffer();
@@ -66,35 +66,33 @@ if (typeof $YB != 'undefined') {
             // Register Events
             var context = this;
 
-            // TODO: Evaluate improvement on the buffering detection using buffering and playing events
-            this.player.addEventListener("onStateChange", function(event) {
+            this.player.addEventListener("onStateChange", function (event) {
                 var pre = 'Event: ' + context.player.getVideoData().video_id + ' > ';
                 switch (event.data) {
-                    case YT.PlayerState.UNSTARTED:
-                        context.playHandler();
-                        $YB.debug(pre + 'State UNSTARTED');
-                        break;
-                    case YT.PlayerState.ENDED:
-                        context.endedHandler();
-                        $YB.debug(pre + 'State ENDED');
-                        break;
-                    case YT.PlayerState.PLAYING:
-                        context.playingHandler();
-                        $YB.debug(pre + 'State PLAYING');
-                        break;
-                    case YT.PlayerState.PAUSED:
-                        context.pauseHandler();
-                        $YB.debug(pre + 'State PAUSED');
-                        break;
-                    case YT.PlayerState.BUFFERING:
-                        context.bufferingHandler();
-                        $YB.debug(pre + 'State BUFFERING');
-                        break;
+                case YT.PlayerState.UNSTARTED:
+                    context.playHandler();
+                    $YB.debug(pre + 'State UNSTARTED');
+                    break;
+                case YT.PlayerState.ENDED:
+                    context.endedHandler();
+                    $YB.debug(pre + 'State ENDED');
+                    break;
+                case YT.PlayerState.PLAYING:
+                    context.playingHandler();
+                    $YB.debug(pre + 'State PLAYING');
+                    break;
+                case YT.PlayerState.PAUSED:
+                    context.pauseHandler();
+                    $YB.debug(pre + 'State PAUSED');
+                    break;
+                case YT.PlayerState.BUFFERING:
+                    context.bufferingHandler();
+                    $YB.debug(pre + 'State BUFFERING');
+                    break;
                 }
             });
 
-
-            this.player.addEventListener("onError", function(event) {
+            this.player.addEventListener("onError", function (event) {
                 $YB.debug('Event: YT ' + context.player.getVideoData().video_id + ' > Error');
                 var error = {
                     "2": "Invalid ID",
@@ -103,6 +101,7 @@ if (typeof $YB != 'undefined') {
                     "101": "Not allowed to play by owner",
                 };
 
+                // Error code 150 is the same as 101
                 var code = event.data;
                 if (code === 150) {
                     // Error 150 is the same as 101 as stated in the documentation
@@ -115,7 +114,6 @@ if (typeof $YB != 'undefined') {
                     context.errorHandler(code, 'Unknown error');
                 }
             });
-
         } catch (err) {
             $YB.error(err);
         }
