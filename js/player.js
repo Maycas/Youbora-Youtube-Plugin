@@ -6,29 +6,35 @@ var playerCatalogUrl = "http://pre.smartplugin.youbora.com/src/v5/plugins/youtub
 var videoFiles = [{
     id: "0",
     label: "VoD - Google I/O Conference",
-    file: "M7lc1UVf-VE" // Google I/O conference
+    file: "M7lc1UVf-VE", // Google I/O conference
+    isLive: false
 }, {
     id: "1",
     label: "Live - Aljazeera English",
-    file: "VBEmqvVPOX4" // Aljazeera live stream
+    file: "VBEmqvVPOX4", // Aljazeera live stream
+    isLive: true
 }];
 
 var options = {
     // Account code and enable YOUBORA Analytics
     accountCode: "qamini",
     enableAnalytics: true,
+
     //View parameters
     username: "userTest",
     transactionCode: "transactionTest",
-    /*
+
     //Media info
-    media: {
+    /*
+     media: {
         title: "titleTest",
         duration: 3600,
         isLive: false,
         resource: "http://yourhost.com/yourmedia.m3u8"
-    },
+     },
+     */
     //Media and device extra info
+    /*
     properties: {
         filename: "test.m3u8",
         content_id: "contentTest",
@@ -55,7 +61,9 @@ var options = {
             firmware: "firmwareTest"
         }
     },
+    */
     //Optional features
+    /*
     parseHLS: false,
     parseCDNNodeHost: false,
     httpSecure: false,
@@ -75,7 +83,7 @@ function playerSetup() {
     firstScriptTag.parentNode.insertBefore(YTtag, firstScriptTag);
 
     // Player will be loaded as soon as onYouTubeIframeAPIReady event is fired
-    // Nothing needs to be done
+    // Nothing needs to be done here
 }
 
 // Loads the player following the specific player methods
@@ -110,7 +118,13 @@ function removePlayer(playerId, forceStop) {
 
 // Changes the video element, based on the video id received when clicking in the navbar
 function changeVideoElement(event) {
+    // Remove the player holder
     removePlayer(playerId, true);
+
+    // Correctly set isLive depending on the file being loaded
+    options.media.isLive = videoFiles[event.target.parentNode.id].isLive;
+
+    // Load the player with the new configuration
     loadPlayer(videoFiles[event.target.parentNode.id].file, playerId);
 }
 
@@ -120,7 +134,7 @@ function onYouTubeIframeAPIReady() {
     loadPlayer(videoFiles[0].file, playerId);
 }
 
-// For the purpose of this demo,
+// For the purpose of this demo, the player is autoplayed and muted
 function onPlayerReady(event) {
     event.target.playVideo();
     player.mute();

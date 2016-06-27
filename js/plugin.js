@@ -61,7 +61,7 @@ if (typeof $YB != 'undefined') {
     $YB.plugins.Youtube.prototype.registerListeners = function () {
         try {
             // Start buffer watcher. Requires data.enableNiceBuffer to be true.
-            //this.startAutobuffer();
+            this.startAutobuffer();
 
             // Register Events
             var context = this;
@@ -85,10 +85,12 @@ if (typeof $YB != 'undefined') {
                     context.pauseHandler();
                     $YB.debug(pre + 'State PAUSED');
                     break;
-                case YT.PlayerState.BUFFERING:
-                    context.bufferingHandler();
-                    $YB.debug(pre + 'State BUFFERING');
-                    break;
+                    /*
+                    case YT.PlayerState.BUFFERING:
+                        context.bufferingHandler();
+                        $YB.debug(pre + 'State BUFFERING');
+                        break;
+                    */
                 }
             });
 
