@@ -1,8 +1,8 @@
 // Player helpers
-var player;
-var title = "YOUBORA YouTube Plugin"
-var playerId = "player";
-var playerCatalogUrl = "http://pre.smartplugin.youbora.com/src/v5/plugins/youtube/features.json";
+var player; // Global variable to declare the player
+var title = "YOUBORA YouTube Plugin"; // Page title
+var playerId = "player"; // Player HTML id tag
+var playerCatalogUrl = "http://pre.smartplugin.youbora.com/src/v5/plugins/youtube/features.json"; // JSON player catalog to build the Features table
 var videoFiles = [{
     id: "0",
     label: "VoD - Google I/O Conference",
@@ -13,8 +13,9 @@ var videoFiles = [{
     label: "Live - Aljazeera English",
     file: "VBEmqvVPOX4", // Aljazeera live stream
     isLive: true
-}];
+}]; // Video file objects to load
 
+// YOUBORA Options
 var options = {
     // Account code and enable YOUBORA Analytics
     accountCode: "qamini",
@@ -73,7 +74,7 @@ var options = {
     */
 };
 
-// YOUTUBE Player setup
+// Player setup
 function playerSetup() {
     var YTtag = document.createElement('script');
     YTtag.src = "https://www.youtube.com/iframe_api";

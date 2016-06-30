@@ -66,7 +66,7 @@ if (typeof $YB != 'undefined') {
     $YB.plugins.Youtube.prototype.registerListeners = function () {
         try {
             // Start buffer watcher
-            //this.enableBufferMonitor();
+            this.enableBufferMonitor();
 
             // Register Events
             var context = this;

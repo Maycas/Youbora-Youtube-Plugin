@@ -1,5 +1,8 @@
 // Page setup
 function init(videoFiles) {
+    // Set page title
+    setPageTitle(title);
+
     // Build navbar
     buildNavbar(videoFiles);
 
@@ -10,8 +13,14 @@ function init(videoFiles) {
     playerSetup();
 }
 
+// Sets the page title programmatically
+function setPageTitle(title) {
+    document.title = title;
+}
+
 // Builds the navbar for the resources navigation
 function buildNavbar(videoElements) {
+    // Adds the diferent video elements in the
     var ul = document.getElementById("navbar");
     var li = document.createElement("li");
     var html = "";
@@ -20,6 +29,8 @@ function buildNavbar(videoElements) {
         html += "<li role = 'selector' id = '" + videoElements[i].id + "'> <a href = '#' >" + videoElements[i].label + "</a></li>";
     }
     ul.innerHTML = html;
+
+    // Sets the first element as the active one
     ul.firstChild.className = "active";
 
     // Sets the listeners for the page navigation
@@ -44,9 +55,9 @@ function toggleVideo(event) {
     changeVideoElement(event);
 }
 
-// TODO
 // Accesses the catalog URL page and gets the table information
 function buildPluginInfo(catalogUrl) {
+    // Create an xhr request to the plugin catalog URL to draw the features table
     var xhr = new XMLHttpRequest();
     xhr.open("GET", catalogUrl, true);
     xhr.onload = function () {
