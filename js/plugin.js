@@ -1,6 +1,6 @@
 /**
  * @license
- * Youbora Plugin 5.1.0-Youtube
+ * Youbora Plugin 5.3.0-Youtube
  * Copyright NicePopleAtWork <http://nicepeopleatwork.com/>
  * @author Marc Maycas
  */
@@ -13,10 +13,10 @@ if (typeof $YB != 'undefined') {
             this.pluginName = 'youtube';
 
             /** Version of the plugin. ie: 5.1.0-name */
-            this.pluginVersion = '5.1.0-youtube';
+            this.pluginVersion = '5.3.0-youtube';
 
             /* Initialize YouboraJS */
-            this.init(player, options);
+            this.startMonitoring(player, options);
 
             // Register the listeners. Comment this line if you want to instantiate the plugin async.
             this.registerListeners();
@@ -40,7 +40,7 @@ if (typeof $YB != 'undefined') {
 
     /** Returns the title or an empty string. */
     $YB.plugins.Youtube.prototype.getTitle = function () {
-        if (this.player.getVideoData) {
+        if (this.player.getVideoData()) {
             return this.player.getVideoData().title;
         } else {
             return 'unknown';
@@ -57,65 +57,74 @@ if (typeof $YB != 'undefined') {
         return this.player.getPlaybackQuality();
     };
 
+    /** Get player Version **/
+    $YB.plugins.Youtube.prototype.getPlayerVersion = function () {
+        return "YOUTUBE API";
+    }
+
     /** Register Listeners */
     $YB.plugins.Youtube.prototype.registerListeners = function () {
         try {
-            // Start buffer watcher. Requires data.enableNiceBuffer to be true.
-            this.startAutobuffer();
+            // Start buffer watcher
+            //this.enableBufferMonitor();
 
             // Register Events
             var context = this;
 
             this.player.addEventListener("onStateChange", function (event) {
                 var pre = 'Event: ' + context.player.getVideoData().video_id + ' > ';
-                switch (event.data) {
-                case YT.PlayerState.UNSTARTED:
-                    context.playHandler();
-                    $YB.debug(pre + 'State UNSTARTED');
-                    break;
-                case YT.PlayerState.ENDED:
-                    context.endedHandler();
-                    $YB.debug(pre + 'State ENDED');
-                    break;
-                case YT.PlayerState.PLAYING:
-                    context.playingHandler();
-                    $YB.debug(pre + 'State PLAYING');
-                    break;
-                case YT.PlayerState.PAUSED:
-                    context.pauseHandler();
-                    $YB.debug(pre + 'State PAUSED');
-                    break;
-                    /*
-                    case YT.PlayerState.BUFFERING:
-                        context.bufferingHandler();
-                        $YB.debug(pre + 'State BUFFERING');
+                if (!context.viewManager.isErrorSent) {
+                    switch (event.data) {
+                    case YT.PlayerState.UNSTARTED:
+                        context.playHandler();
+                        $YB.debug(pre + 'State UNSTARTED');
                         break;
-                    */
+                    case YT.PlayerState.ENDED:
+                        context.endedHandler();
+                        $YB.debug(pre + 'State ENDED');
+                        break;
+                    case YT.PlayerState.PLAYING:
+                        context.playingHandler();
+                        $YB.debug(pre + 'State PLAYING');
+                        break;
+                    case YT.PlayerState.PAUSED:
+                        context.pauseHandler();
+                        $YB.debug(pre + 'State PAUSED');
+                        break;
+                        /*
+                        case YT.PlayerState.BUFFERING:
+                            context.bufferingHandler();
+                            $YB.debug(pre + 'State BUFFERING');
+                            break;
+                        */
+                    }
                 }
             });
 
             this.player.addEventListener("onError", function (event) {
                 $YB.debug('Event: YT ' + context.player.getVideoData().video_id + ' > Error');
-                var error = {
-                    "2": "Invalid ID",
-                    "5": "HTML5 content error",
-                    "100": "Video not found",
-                    "101": "Not allowed to play by owner",
-                };
+                if (!context.viewManager.isErrorSent) {
+                    var error = {
+                        "2": "Invalid ID",
+                        "5": "HTML5 content error",
+                        "100": "Video not found",
+                        "101": "Not allowed to play by owner",
+                    };
 
-                // Error code 150 is the same as 101
-                var code = event.data;
-                if (code === 150) {
-                    // Error 150 is the same as 101 as stated in the documentation
-                    code = 101;
-                }
+                    var code = event.data;
+                    if (code === 150) {
+                        // Error 150 is the same as 101 as stated in the documentation
+                        code = 101;
+                    }
 
-                if (error[code] !== undefined) {
-                    context.errorHandler(code, error[code]);
-                } else {
-                    context.errorHandler(code, 'Unknown error');
+                    if (error[code] !== undefined) {
+                        context.errorHandler(code, error[code]);
+                    } else {
+                        context.errorHandler(code, 'Unknown error');
+                    }
                 }
             });
+
         } catch (err) {
             $YB.error(err);
         }

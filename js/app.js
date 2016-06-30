@@ -1,6 +1,3 @@
-// TODO: Fix navbar naming confusion
-// TODO: Add the title programmatically
-
 // Page setup
 function init(videoFiles) {
     // Build navbar

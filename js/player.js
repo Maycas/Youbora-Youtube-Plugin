@@ -25,14 +25,12 @@ var options = {
     transactionCode: "transactionTest",
 
     //Media info
-    /*
-     media: {
-        title: "titleTest",
-        duration: 3600,
+    media: {
+        //title: "titleTest",
+        //duration: 3600,
         isLive: false,
-        resource: "http://yourhost.com/yourmedia.m3u8"
-     },
-     */
+        //resource: "http://yourhost.com/yourmedia.m3u8"
+    },
     //Media and device extra info
     /*
     properties: {
