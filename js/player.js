@@ -2,7 +2,7 @@
 var player; // Global variable to declare the player
 var title = "YOUBORA YouTube Plugin"; // Page title
 var playerId = "player"; // Player HTML id tag
-var playerCatalogUrl = "http://pre.smartplugin.youbora.com/src/v5/plugins/youtube/features.json"; // JSON player catalog to build the Features table
+var playerCatalogUrl = "js/features.json"; // JSON player catalog to build the Features table
 var videoFiles = [{
     id: "0",
     label: "VoD - Google I/O Conference",
@@ -32,6 +32,7 @@ var options = {
         isLive: false,
         //resource: "http://yourhost.com/yourmedia.m3u8"
     },
+
     //Media and device extra info
     /*
     properties: {
@@ -87,6 +88,7 @@ function playerSetup() {
 
 // Loads the player following the specific player methods
 function loadPlayer(videoId, playerId) {
+    // This code gets called as soon as YouTubeIframeAPI is ready
     player = new YT.Player(playerId, {
         videoId: videoId,
         width: "585px",
