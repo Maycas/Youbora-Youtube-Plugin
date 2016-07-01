@@ -107,7 +107,7 @@ function removePlayer(playerId, forceStop) {
     // Send a stop in order to see the view correctly closed if a stop is forced
     if (forceStop && forceStop != 'undefined') {
         try {
-            youbora.stopHandler();
+            youbora.endedHandler();
         } catch (err) {
             $YB.error(err);
         }
